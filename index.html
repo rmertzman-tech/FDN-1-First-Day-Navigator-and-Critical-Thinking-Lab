@@ -125,14 +125,17 @@
       <div class="twocol">
         <div>
           <h3>Core terms</h3>
+          <p class="small">Click a term below for a short explanation and Navigator connection.</p>
           <span class="tag">claim</span><span class="tag">assumption</span><span class="tag">reason</span><span class="tag">evidence</span><span class="tag">inference</span><span class="tag">premise</span><span class="tag">conclusion</span><span class="tag">deduction</span><span class="tag">induction</span><span class="tag">abduction</span><span class="tag">validity</span><span class="tag">soundness</span><span class="tag">counterexample</span><span class="tag">ambiguity</span>
+          <div class="accordion" id="coreAccordion"></div>
         </div>
         <div>
           <h3>Fallacy examples</h3>
+          <p class="small">Click a fallacy below to see how it can distort a Field Scan or Move Card.</p>
           <span class="tag">ad hominem</span><span class="tag">straw man</span><span class="tag">false dilemma</span><span class="tag">slippery slope</span><span class="tag">hasty generalization</span><span class="tag">appeal to authority</span><span class="tag">appeal to emotion</span><span class="tag">confirmation bias</span><span class="tag">category error</span>
+          <div class="accordion" id="fallacyAccordion"></div>
         </div>
       </div>
-      <div class="accordion" id="accordion"></div>
     </div>
   </section>
 
@@ -216,14 +219,27 @@ const slideGuides = [
   {cap:'Closing frame: ethical navigation as learned practice.', prompt:'End with the goal: become more awake, responsible, and capable of shaping one next move with care and reflection.'}
 ];
 const ctItems = [
+  ['Claim','The main point someone is asserting or defending. Navigator question: What am I currently concluding about this field or situation?'],
   ['Assumption','Something taken for granted in a claim or interpretation. Navigator question: What am I assuming about this situation?'],
   ['Reason','A consideration offered in support of a claim, judgment, or move. Navigator question: Why does this move make sense?'],
+  ['Evidence / Grounds','Facts, observations, examples, or testimony that support a claim. Navigator question: What supports this interpretation besides my first reaction?'],
   ['Inference','The movement from what I notice to what I conclude. Navigator question: Does my conclusion really follow from what I observed?'],
   ['Deduction','Reasoning where the conclusion must follow if the premises are true. Example: If all enrolled students must complete the final, and I am enrolled, I must complete the final.'],
   ['Induction','Reasoning from repeated patterns or examples to a probable conclusion. Example: Waiting until the last minute has often harmed my work, so it will probably harm this assignment too.'],
   ['Abduction','Reasoning to the best explanation. Example: The best explanation for my stress may be incompatible obligations rather than laziness.'],
   ['Validity and Soundness','Validity concerns whether the conclusion follows. Soundness requires validity plus true premises. Ethical reasoning also asks whether the premises are morally adequate.'],
-  ['Fallacy','A common pattern of weak or misleading reasoning. Navigator use: identify whether a first reaction contains a hasty generalization, false dilemma, ad hominem, or slippery slope.']
+  ['Counterexample','A case that shows a general claim is false, too broad, or needs qualification. Navigator question: Is there an example that complicates my conclusion?']
+];
+const fallacyItems = [
+  ['Ad hominem','Rejecting a claim by attacking the person rather than evaluating the reasons. Navigator repair: separate the speaker from the claim and ask whether the claim has grounds.'],
+  ['Straw man','Misrepresenting another view so it is easier to dismiss. Navigator repair: restate the other view in a way its defender would recognize before criticizing it.'],
+  ['False dilemma','Treating a situation as if there are only two options when more moves are possible. Navigator repair: create at least three Move Cards before deciding.'],
+  ['Slippery slope','Assuming one step will inevitably lead to extreme consequences without enough support. Navigator repair: ask what evidence shows each step in the chain is likely.'],
+  ['Hasty generalization','Drawing a broad conclusion from too little evidence. Navigator repair: ask whether one example, one bad experience, or one strong feeling is doing too much work.'],
+  ['Appeal to authority','Treating authority as decisive when reasons, evidence, or affected-person experience still need to be considered. Navigator repair: ask what the authority actually knows and whether the claim is still open to challenge.'],
+  ['Appeal to emotion','Letting emotional force replace reasons. Navigator repair: treat emotion as a signal to examine, not as the whole argument.'],
+  ['Confirmation bias','Noticing only evidence that supports what I already believe. Navigator repair: deliberately search for one fact or perspective that could challenge my first conclusion.'],
+  ['Category error','Using the wrong kind of category to understand a person or situation. Navigator repair: ask whether a label, score, or model is misdescribing lived reality.']
 ];
 let currentSlide = 1;
 function init(){
@@ -231,8 +247,10 @@ function init(){
   sections.forEach(([id,label],idx)=>{const b=document.createElement('button');b.textContent=label;b.onclick=()=>showSection(id);if(idx===0)b.className='active';nav.appendChild(b);});
   const thumbs = document.getElementById('thumbs');
   for(let i=1;i<=13;i++){const d=document.createElement('div');d.className='thumb'+(i===1?' active':'');d.onclick=()=>setSlide(i);const img=document.createElement('img');img.src=`assets/slide-${String(i).padStart(2,'0')}.jpg`;img.alt=`Slide ${i}`;d.appendChild(img);thumbs.appendChild(d);}  
-  const acc=document.getElementById('accordion');
-  ctItems.forEach(([title,body])=>{const btn=document.createElement('button');btn.textContent=title;const pan=document.createElement('div');pan.className='panel';pan.innerHTML='<p>'+body+'</p>';btn.onclick=()=>pan.classList.toggle('open');acc.appendChild(btn);acc.appendChild(pan);});
+  const coreAcc=document.getElementById('coreAccordion');
+  ctItems.forEach(([title,body])=>{const btn=document.createElement('button');btn.textContent=title;const pan=document.createElement('div');pan.className='panel';pan.innerHTML='<p>'+body+'</p>';btn.onclick=()=>pan.classList.toggle('open');coreAcc.appendChild(btn);coreAcc.appendChild(pan);});
+  const fallacyAcc=document.getElementById('fallacyAccordion');
+  fallacyItems.forEach(([title,body])=>{const btn=document.createElement('button');btn.textContent=title;const pan=document.createElement('div');pan.className='panel';pan.innerHTML='<p>'+body+'</p>';btn.onclick=()=>pan.classList.toggle('open');fallacyAcc.appendChild(btn);fallacyAcc.appendChild(pan);});
   setSlide(1); loadWork();
 }
 function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navinner button').forEach((b,i)=>b.classList.toggle('active',sections[i][0]===id));window.scrollTo({top:0,behavior:'smooth'});}
