@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>First Day Navigator & Critical Thinking Lab</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --panel:#ffffff; --ink:#1f2937; --muted:#667085; --line:#d7dce5;
+      --accent:#176b87; --accent2:#255f42; --soft:#e8f4f7; --soft2:#edf7f1; --warn:#fff7e6;
+      --shadow:0 10px 30px rgba(15,23,42,.10); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+    header{background:linear-gradient(135deg,#113f55,#1b7a90 58%,#276449);color:white;padding:34px 22px 28px;border-bottom:4px solid rgba(255,255,255,.25)}
+    .wrap{max-width:1180px;margin:0 auto}
+    h1{font-size:clamp(1.9rem,4vw,3.3rem);line-height:1.06;margin:0 0 10px;font-weight:800;letter-spacing:-.03em}
+    h2{font-size:1.6rem;line-height:1.2;margin:0 0 14px;color:#12313f}
+    h3{font-size:1.15rem;margin:20px 0 8px;color:#173a4a}
+    p{margin:0 0 12px}.lede{font-size:1.12rem;max-width:920px;color:#e7f6fb}.small{font-size:.92rem;color:var(--muted)}
+    .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.13);font-size:.9rem}
+    nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
+    .navinner{display:flex;gap:8px;overflow:auto;padding:10px 18px;max-width:1180px;margin:auto}.navinner button,.btn{border:1px solid var(--line);background:#fff;color:#1f3b4d;border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:650;white-space:nowrap}.navinner button.active,.btn.primary{background:var(--accent);border-color:var(--accent);color:white}.btn.green{background:var(--accent2);border-color:var(--accent2);color:#fff}.btn.ghost{background:transparent}
+    main{padding:28px 18px 70px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:20px}.notice{border-left:5px solid var(--accent);background:var(--soft);padding:14px 16px;border-radius:12px;margin:14px 0}.notice.green{border-left-color:var(--accent2);background:var(--soft2)}.notice.warn{border-left-color:#d68d00;background:var(--warn)}
+    .section{display:none}.section.active{display:block}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.step{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px}.step strong{display:block;color:#10384a;margin-bottom:4px}.kicker{letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:800;font-size:.78rem;margin-bottom:6px}.quote{font-size:1.1rem;border-left:4px solid var(--accent);padding-left:14px;color:#243b53}
+    textarea,input,select{width:100%;font:inherit;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;color:var(--ink)}textarea{min-height:94px;resize:vertical}.field{margin:12px 0}.field label{font-weight:700;display:block;margin-bottom:5px;color:#24364a}
+    .deck{display:grid;grid-template-columns:180px 1fr;gap:14px}.thumbs{max-height:620px;overflow:auto;padding-right:4px}.thumb{border:2px solid transparent;border-radius:12px;background:#fff;padding:5px;margin-bottom:8px;cursor:pointer}.thumb.active{border-color:var(--accent);box-shadow:0 0 0 3px rgba(23,107,135,.18)}.thumb img{width:100%;display:block;border-radius:8px}.slideview{background:#0b1720;border-radius:18px;padding:10px;box-shadow:var(--shadow)}.slideview img{width:100%;display:block;border-radius:12px;background:#111}.slidecap{color:#e7eef7;margin-top:10px;padding:0 4px}.slidecontrols{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px}.slidecontrols button{border:none;border-radius:999px;padding:9px 14px;cursor:pointer;font-weight:700}.guideitem{display:none}.guideitem.active{display:block}
+    .accordion button{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;margin:8px 0;padding:14px;font-weight:800;color:#173a4a;cursor:pointer}.panel{display:none;padding:4px 12px 12px;border-left:3px solid var(--line);margin-left:10px}.panel.open{display:block}
+    .receipt{white-space:pre-wrap;background:#0f172a;color:#e2e8f0;border-radius:14px;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.88rem;overflow:auto}.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 8px;margin:3px;background:#fff;font-size:.84rem}.footer-note{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:20px}
+    @media(max-width:900px){.grid,.twocol,.deck{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:none}.thumb{margin:0}}
+    @media print{header,nav,.no-print,.thumbs,.slidecontrols{display:none!important}body{background:#fff}.section{display:block!important}.card{box-shadow:none;break-inside:avoid;border:1px solid #bbb}.grid,.twocol,.deck{display:block}.slideview{background:#fff;box-shadow:none}.slidecap{color:#111}.slideview img{border:1px solid #aaa}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>First Day Navigator & Critical Thinking Lab</h1>
+    <p class="lede">An in-class teaching tool for explaining how The Navigator supports ethical reflection, traditional critical thinking, public reasoning, and privacy-preserving student agency.</p>
+    <div class="pillrow">
+      <span class="pill">Field Scans</span><span class="pill">Combined Context</span><span class="pill">Move Cards</span><span class="pill">Current Move Plan</span><span class="pill">Critical Thinking Toolbelt</span><span class="pill">AI-Optional Pathway</span>
+    </div>
+  </div>
+</header>
+<nav>
+  <div class="navinner" id="navButtons"></div>
+</nav>
+<main class="wrap">
+  <section class="section active" id="overview">
+    <div class="grid">
+      <div class="card">
+        <div class="kicker">Purpose</div>
+        <h2>What students should understand on Day One</h2>
+        <p>The Navigator is not a grading machine, a personality test, a therapist, or a moral judge. It is a private space for slowing down, mapping situations, identifying assumptions, comparing possible moves, and preparing better ethical deliberation.</p>
+        <div class="notice">
+          <strong>Core message for students:</strong> The tool matters less than the practice. Students can use The Navigator, a printed worksheet, or their own notebook. The course goal is to internalize a disciplined sequence of attention, context, alternatives, evaluation, and responsible judgment.
+        </div>
+        <div class="steps">
+          <div class="step"><strong>1. Field Scan</strong>Name one life-field and what is happening there.</div>
+          <div class="step"><strong>2. Combined Context</strong>Connect fields instead of isolating one pressure.</div>
+          <div class="step"><strong>3. Move Cards</strong>Generate possible next moves before deciding.</div>
+          <div class="step"><strong>4. Compare Moves</strong>Test each move across values, risks, and fields.</div>
+          <div class="step"><strong>5. Current Plan</strong>Choose one small, reviewable next step.</div>
+        </div>
+      </div>
+      <aside class="card">
+        <div class="kicker">Instructor flow</div>
+        <h2>Suggested 50–75 minute class use</h2>
+        <p><strong>Opening:</strong> Explain private reflection vs. public reasoning.</p>
+        <p><strong>Slides:</strong> Walk through the visual deck with 2–3 discussion pauses.</p>
+        <p><strong>Practice:</strong> Students complete a low-stakes Field Scan and Move Card.</p>
+        <p><strong>Bridge:</strong> Students convert one private noticing into a public ethical question.</p>
+        <p><strong>Close:</strong> Explain that AI is optional; the critical thinking process can be done manually.</p>
+        <button class="btn primary no-print" onclick="showSection('practice')">Start student practice</button>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="slides">
+    <div class="card">
+      <div class="kicker">Visual teaching deck</div>
+      <h2>The Navigator for Ethical Life</h2>
+      <p class="small">Use this section as a live classroom presentation. The slide images are stored in the assets folder, so this app should be uploaded to GitHub with both <code>index.html</code> and <code>assets/</code>.</p>
+      <div class="deck">
+        <div class="thumbs" id="thumbs"></div>
+        <div>
+          <div class="slideview">
+            <img id="mainSlide" src="assets/slide-01.jpg" alt="Slide 1">
+            <div class="slidecap" id="slideCaption"></div>
+            <div class="slidecontrols no-print">
+              <button onclick="prevSlide()">← Previous</button>
+              <span id="slideCount" style="color:#e2e8f0;font-weight:700"></span>
+              <button onclick="nextSlide()">Next →</button>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px;box-shadow:none">
+            <h3>Teaching prompts for this slide</h3>
+            <div id="guideText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reading">
+    <div class="card">
+      <div class="kicker">Week 1 handout</div>
+      <h2>The Navigator and Critical Thinking: From Reflection to Reasoned Judgment</h2>
+      <p>The Navigator is a private reflection tool, but it is not separate from critical thinking. It is one way of practicing critical thinking in the concrete situations of ordinary life. Traditional critical thinking courses often teach students to identify assumptions, clarify claims, examine evidence, consider alternatives, detect fallacies, evaluate reasons, and reach better-supported conclusions. Ethics courses ask students to apply those skills to questions of value, responsibility, harm, care, justice, duty, character, and consequence. The Navigator brings these two tasks together.</p>
+      <p>Critical thinking begins when we stop treating our first reaction as the whole truth. A first reaction may be important. It may reveal fear, anger, care, loyalty, unfairness, confusion, or concern. But a first reaction still needs examination. The Navigator helps students pause and ask: What am I noticing? What am I assuming? What might I be missing? What other fields of life are involved? Who else is affected? What values are at stake?</p>
+      <p>The Field Scan is the first critical thinking move. A student maps one area of life—school, work, family, health, friendship, community, future planning, or identity—and asks what is happening there. This is similar to defining the problem in critical thinking.</p>
+      <p>The combined context is the second critical thinking move. Real ethical problems usually involve more than one field. A work decision may affect school. A family obligation may affect health. A friendship conflict may affect honesty, loyalty, stress, and self-respect. The Navigator helps students assemble these fields into a wider context.</p>
+      <p>Move Cards are the third critical thinking move. Instead of asking students to leap from confusion to a final answer, The Navigator asks them to generate possible next moves. This resembles the critical thinking practice of considering alternatives.</p>
+      <p>Comparing moves across fields is the fourth critical thinking move. In logic and argument analysis, students learn that a conclusion must be tested against reasons, objections, and consequences. In ethics, a possible action must be tested across values and relationships.</p>
+      <p>The Current Move Plan is the fifth critical thinking move. Critical thinking is not merely criticism. It should help us reach a more responsible judgment. A Current Move Plan asks the student to choose one small, deliberate next step, explain why it makes sense, identify the values it protects, notice the risks it carries, and decide when to review it.</p>
+      <div class="notice green"><strong>AI-optional principle:</strong> Students who choose not to use AI can still use the same process on paper. The value lies in the disciplined sequence of attention, context, alternatives, evaluation, and judgment.</div>
+      <p>That is critical thinking in ethical life. The Navigator simply gives students a structured way to practice it.</p>
+    </div>
+  </section>
+
+  <section class="section" id="toolbelt">
+    <div class="card">
+      <div class="kicker">Traditional critical thinking terms</div>
+      <h2>Critical Thinking Toolbelt</h2>
+      <p>EBB and The Navigator do not replace traditional critical thinking vocabulary. They give students a place to use it. These terms can be introduced on Day One and reinforced throughout the course.</p>
+      <div class="twocol">
+        <div>
+          <h3>Core terms</h3>
+          <span class="tag">claim</span><span class="tag">assumption</span><span class="tag">reason</span><span class="tag">evidence</span><span class="tag">inference</span><span class="tag">premise</span><span class="tag">conclusion</span><span class="tag">deduction</span><span class="tag">induction</span><span class="tag">abduction</span><span class="tag">validity</span><span class="tag">soundness</span><span class="tag">counterexample</span><span class="tag">ambiguity</span>
+        </div>
+        <div>
+          <h3>Fallacy examples</h3>
+          <span class="tag">ad hominem</span><span class="tag">straw man</span><span class="tag">false dilemma</span><span class="tag">slippery slope</span><span class="tag">hasty generalization</span><span class="tag">appeal to authority</span><span class="tag">appeal to emotion</span><span class="tag">confirmation bias</span><span class="tag">category error</span>
+        </div>
+      </div>
+      <div class="accordion" id="accordion"></div>
+    </div>
+  </section>
+
+  <section class="section" id="practice">
+    <div class="card">
+      <div class="kicker">Student practice</div>
+      <h2>Mini Navigator Practice: Field Scan → Move Plan</h2>
+      <p class="notice warn">This practice is private by default. Students may write about an ordinary, low-stakes situation. They should not be required to disclose personal experiences publicly.</p>
+      <div class="field"><label for="fieldName">1. Choose one life-field</label><input id="fieldName" placeholder="School, work, family, health, friendship, future planning..." oninput="saveWork()"></div>
+      <div class="field"><label for="whathappening">2. What is happening in this field?</label><textarea id="whathappening" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="assumption">3. What assumption might I be making?</label><textarea id="assumption" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="missing">4. What might I be missing?</label><textarea id="missing" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="values">5. What values are at stake?</label><textarea id="values" oninput="saveWork()"></textarea></div>
+      <div class="twocol">
+        <div class="field"><label for="move1">Possible Move Card A</label><textarea id="move1" oninput="saveWork()"></textarea></div>
+        <div class="field"><label for="move2">Possible Move Card B</label><textarea id="move2" oninput="saveWork()"></textarea></div>
+      </div>
+      <div class="field"><label for="compare">Compare the moves: what does each protect, risk, or neglect?</label><textarea id="compare" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="plan">Current Move Plan: What small, responsible next move can I try?</label><textarea id="plan" oninput="saveWork()"></textarea></div>
+    </div>
+  </section>
+
+  <section class="section" id="bridge">
+    <div class="card">
+      <div class="kicker">Privacy-preserving public reasoning</div>
+      <h2>Public Reasoning Bridge</h2>
+      <p>Your private reflection belongs to you. This bridge helps you decide whether there is a public-facing ethical issue, question, or argument you want to carry forward without revealing personal details.</p>
+      <div class="field"><label for="privateNotice">My private reflection helped me notice...</label><textarea id="privateNotice" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="publicFrame">For public discussion, I would frame the issue as...</label><textarea id="publicFrame" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="whyMatter">This framing matters because...</label><textarea id="whyMatter" oninput="saveWork()"></textarea></div>
+      <div class="field"><label for="shareChoice">Sharing choice</label><select id="shareChoice" onchange="saveWork()"><option>Keep private</option><option>Use in class discussion</option><option>Use in written work</option><option>Carry forward to Navigator</option><option>Decide later</option></select></div>
+    </div>
+  </section>
+
+  <section class="section" id="instructor">
+    <div class="card">
+      <div class="kicker">Instructor view</div>
+      <h2>Day One facilitation notes</h2>
+      <div class="notice"><strong>Recommended opening language:</strong> “The purpose of this course is not to force disclosure. The purpose is to practice clearer ethical attention, better critical thinking, and more responsible public reasoning. Private reflection stays private unless you choose to use it.”</div>
+      <h3>Discussion prompts</h3>
+      <ol>
+        <li>Why might a first reaction be important but incomplete?</li>
+        <li>What is the difference between a private experience and a public ethical question?</li>
+        <li>How do assumptions shape what we notice first?</li>
+        <li>Why should we generate more than one possible move before deciding?</li>
+        <li>How can students practice this process without AI or digital tools?</li>
+      </ol>
+      <h3>Low-stakes closing activity</h3>
+      <p>Ask students to write one public ethical question that emerged from the practice. They should not share private details. Examples: “How should we balance honesty and care?” “When does responsibility require asking for help?” “How should pressure affect moral judgment?”</p>
+    </div>
+  </section>
+
+  <section class="section" id="export">
+    <div class="card">
+      <div class="kicker">Save, print, or copy</div>
+      <h2>Student Work Summary</h2>
+      <p>This summary is generated locally in the browser. Nothing is uploaded automatically.</p>
+      <div class="pillrow no-print"><button class="btn primary" onclick="generateSummary()">Generate Summary</button><button class="btn green" onclick="copySummary()">Copy Summary</button><button class="btn" onclick="window.print()">Print / Save as PDF</button><button class="btn ghost" onclick="clearWork()">Clear Local Work</button></div>
+      <div id="summaryBox" class="receipt" style="margin-top:16px">Click “Generate Summary” after completing the practice fields.</div>
+      <p class="footer-note">Canvas handout option: students who do not use The Navigator may print or copy this summary as a paper-based reflection aid if your course instructions allow it.</p>
+    </div>
+  </section>
+</main>
+<script>
+const sections = [
+  ['overview','Overview'],['slides','Slides'],['reading','Reading'],['toolbelt','CT Toolbelt'],['practice','Practice'],['bridge','Public Bridge'],['instructor','Instructor Notes'],['export','Print / Copy']
+];
+const slideGuides = [
+  {cap:'Opening frame: The Navigator as ethical life-mapping.', prompt:'Ask students what it means to navigate an ethical situation before knowing the answer. Emphasize that navigation begins with attention, not judgment.'},
+  {cap:'Private reflection and student control.', prompt:'Pause here to explain privacy. The tool does not require students to share private interiority; it helps them prepare public reasoning if they choose.'},
+  {cap:'Life-fields: school, work, family, health, community, future.', prompt:'Invite students to name ordinary life-fields. Keep examples low-stakes so students do not feel pressured to disclose.'},
+  {cap:'Field Scan: defining the ethical situation before deciding.', prompt:'Connect this to traditional critical thinking: problem definition, assumptions, context, and relevant facts.'},
+  {cap:'Combined context: seeing how fields interact.', prompt:'Ask how school, work, health, and family can affect one another. Highlight that single-field thinking can distort judgment.'},
+  {cap:'Move Cards: generating alternatives.', prompt:'Explain that good critical thinking rarely jumps from first reaction to final conclusion. It generates options.'},
+  {cap:'Comparing moves across values and consequences.', prompt:'Connect this to reasons, objections, consequences, and ethical theories.'},
+  {cap:'Current Move Plan: one small, reviewable next step.', prompt:'Stress that a move plan is not perfection. It is a responsible next step that can be reviewed.'},
+  {cap:'Public Reasoning Bridge.', prompt:'Demonstrate how a private reflection can become a public ethical question without revealing personal details.'},
+  {cap:'Traditional critical thinking within ethical navigation.', prompt:'Name assumptions, inference, induction, deduction, abduction, validity, fallacies, and alternatives as tools used inside the process.'},
+  {cap:'AI-optional and paper-compatible practice.', prompt:'Make clear that the educational practice does not depend on AI. Students may use paper or a private notebook if appropriate.'},
+  {cap:'Development over time.', prompt:'Explain that repeated scans and move plans show a development arc: how students notice, reason, and revise across the course.'},
+  {cap:'Closing frame: ethical navigation as learned practice.', prompt:'End with the goal: become more awake, responsible, and capable of shaping one next move with care and reflection.'}
+];
+const ctItems = [
+  ['Assumption','Something taken for granted in a claim or interpretation. Navigator question: What am I assuming about this situation?'],
+  ['Reason','A consideration offered in support of a claim, judgment, or move. Navigator question: Why does this move make sense?'],
+  ['Inference','The movement from what I notice to what I conclude. Navigator question: Does my conclusion really follow from what I observed?'],
+  ['Deduction','Reasoning where the conclusion must follow if the premises are true. Example: If all enrolled students must complete the final, and I am enrolled, I must complete the final.'],
+  ['Induction','Reasoning from repeated patterns or examples to a probable conclusion. Example: Waiting until the last minute has often harmed my work, so it will probably harm this assignment too.'],
+  ['Abduction','Reasoning to the best explanation. Example: The best explanation for my stress may be incompatible obligations rather than laziness.'],
+  ['Validity and Soundness','Validity concerns whether the conclusion follows. Soundness requires validity plus true premises. Ethical reasoning also asks whether the premises are morally adequate.'],
+  ['Fallacy','A common pattern of weak or misleading reasoning. Navigator use: identify whether a first reaction contains a hasty generalization, false dilemma, ad hominem, or slippery slope.']
+];
+let currentSlide = 1;
+function init(){
+  const nav = document.getElementById('navButtons');
+  sections.forEach(([id,label],idx)=>{const b=document.createElement('button');b.textContent=label;b.onclick=()=>showSection(id);if(idx===0)b.className='active';nav.appendChild(b);});
+  const thumbs = document.getElementById('thumbs');
+  for(let i=1;i<=13;i++){const d=document.createElement('div');d.className='thumb'+(i===1?' active':'');d.onclick=()=>setSlide(i);const img=document.createElement('img');img.src=`assets/slide-${String(i).padStart(2,'0')}.jpg`;img.alt=`Slide ${i}`;d.appendChild(img);thumbs.appendChild(d);}  
+  const acc=document.getElementById('accordion');
+  ctItems.forEach(([title,body])=>{const btn=document.createElement('button');btn.textContent=title;const pan=document.createElement('div');pan.className='panel';pan.innerHTML='<p>'+body+'</p>';btn.onclick=()=>pan.classList.toggle('open');acc.appendChild(btn);acc.appendChild(pan);});
+  setSlide(1); loadWork();
+}
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navinner button').forEach((b,i)=>b.classList.toggle('active',sections[i][0]===id));window.scrollTo({top:0,behavior:'smooth'});}
+function setSlide(n){currentSlide=Math.max(1,Math.min(13,n));document.getElementById('mainSlide').src=`assets/slide-${String(currentSlide).padStart(2,'0')}.jpg`;document.getElementById('mainSlide').alt=`Slide ${currentSlide}`;document.getElementById('slideCount').textContent=`Slide ${currentSlide} of 13`;document.getElementById('slideCaption').textContent=slideGuides[currentSlide-1].cap;document.getElementById('guideText').innerHTML='<p>'+slideGuides[currentSlide-1].prompt+'</p>';document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===currentSlide-1));}
+function nextSlide(){setSlide(currentSlide+1)} function prevSlide(){setSlide(currentSlide-1)}
+const ids=['fieldName','whathappening','assumption','missing','values','move1','move2','compare','plan','privateNotice','publicFrame','whyMatter','shareChoice'];
+function saveWork(){const data={};ids.forEach(id=>{const el=document.getElementById(id);if(el)data[id]=el.value});localStorage.setItem('fdn_v1_work',JSON.stringify(data));}
+function loadWork(){try{const data=JSON.parse(localStorage.getItem('fdn_v1_work')||'{}');ids.forEach(id=>{const el=document.getElementById(id);if(el && data[id])el.value=data[id]});}catch(e){}}
+function generateSummary(){saveWork();const d=JSON.parse(localStorage.getItem('fdn_v1_work')||'{}');const stamp=new Date().toLocaleString();const out=`First Day Navigator & Critical Thinking Lab Summary\nCreated: ${stamp}\n\nFIELD SCAN\nLife-field: ${d.fieldName||''}\nWhat is happening: ${d.whathappening||''}\nAssumption: ${d.assumption||''}\nWhat might be missing: ${d.missing||''}\nValues at stake: ${d.values||''}\n\nMOVE CARDS\nMove A: ${d.move1||''}\nMove B: ${d.move2||''}\nComparison: ${d.compare||''}\n\nCURRENT MOVE PLAN\n${d.plan||''}\n\nPUBLIC REASONING BRIDGE\nPrivate notice: ${d.privateNotice||''}\nPublic framing: ${d.publicFrame||''}\nWhy it matters: ${d.whyMatter||''}\nSharing choice: ${d.shareChoice||'Keep private'}\n\nPrivacy note: This summary was generated locally. Nothing was uploaded automatically.`;document.getElementById('summaryBox').textContent=out;return out;}
+async function copySummary(){const out=generateSummary();try{await navigator.clipboard.writeText(out);alert('Summary copied.');}catch(e){alert('Copy failed. You can select and copy the text manually.');}}
+function clearWork(){if(confirm('Clear local saved work in this browser?')){localStorage.removeItem('fdn_v1_work');ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});document.getElementById('summaryBox').textContent='Local work cleared.';}}
+init();
+</script>
+</body>
+</html>
